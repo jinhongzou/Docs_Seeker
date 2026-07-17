@@ -197,21 +197,21 @@ DocSeeker/
 | `logs/` | 纯文本 | `run_YYYYMMDD_HHMMSS.txt` | 人类可读的完整对话过程 |
 | `sessions/` | JSONL | `history.jsonl` | 查询历史记录 |
 
-## 横向对比：DocSeeker vs Karpathy LLM 项目 vs 传统 RAG
+## 横向对比：DocSeeker vs Karpathy wiki vs 传统 RAG
 
-DocSeeker、Karpathy 的 LLM 项目、传统 RAG 三者处于 AI 技术栈的不同层次，解决不同问题，**不是竞品关系，而是互补关系**。
+DocSeeker、Karpathy wiki、传统 RAG 三者处于 AI 技术栈的不同层次，解决不同问题，**不是竞品关系，而是互补关系**。
 
 ### 三方定位对比
 
-| 维度 | DocSeeker | Karpathy LLM 项目 | 传统 RAG |
+| 维度 | DocSeeker | Karpathy wiki | 传统 RAG |
 |------|-----------|-------------------|----------|
-| **层次** | 应用层（Agent 工具） | 基础层（LLM 原理） | 应用层（检索系统） |
-| **目标** | 文档检索智能体 | 教学/研究 LLM 原理 | 语义检索 + 生成 |
-| **技术栈** | LangGraph + ReAct + MarkItDown | PyTorch + C/CUDA | 向量数据库 + Embedding |
-| **输入** | 自然语言查询 | 训练数据 / 模型权重 | 查询 + 文档库 |
-| **输出** | 文档内容答案 | 训练好的模型 | 检索结果 + 生成答案 |
-| **部署** | pip install 即用 | 需要 GPU + 训练 | 需要向量数据库 |
-| **学习曲线** | 低（会用命令行） | 高（需要 ML 基础） | 中（需要了解向量检索） |
+| **层次** | 应用层（Agent 工具） | 方法论层（知识管理范式） | 应用层（检索系统） |
+| **目标** | 文档检索智能体 | 用 LLM 构建个人知识库 | 语义检索 + 生成 |
+| **技术栈** | LangGraph + ReAct + MarkItDown | LLM + Markdown + Git | 向量数据库 + Embedding |
+| **输入** | 自然语言查询 | 原始文档（论文、文章、笔记） | 查询 + 文档库 |
+| **输出** | 文档内容答案 | 结构化知识库（可积累、可查询） | 检索结果 + 生成答案 |
+| **部署** | pip install 即用 | 需要 LLM Agent + Git | 需要向量数据库 |
+| **学习曲线** | 低（会用命令行） | 中（需要理解知识管理） | 中（需要了解向量检索） |
 
 ### 技术层次关系
 
@@ -228,31 +228,39 @@ DocSeeker、Karpathy 的 LLM 项目、传统 RAG 三者处于 AI 技术栈的不
 │  框架层：LangGraph / ReAct（Agent 编排）                         │
 │                      ↓ 调用                                     │
 │  模型层：GPT-4o / Qwen / Llama（LLM 推理）                      │
-│                      ↓ 训练于                                   │
-│  基础层：nanoGPT / llm.c（LLM 训练/推理）                       │
+│                      ↓ 应用于                                   │
+│  方法论层：Karpathy wiki（知识管理范式）                          │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Karpathy 项目速览
+### Karpathy wiki 是什么？
 
-| 项目 | Stars | 定位 | 与 DocSeeker 的关系 |
-|------|-------|------|---------------------|
-| **nanoGPT** | 61k+ | GPT 训练/微调 | DocSeeker 可调用其训练的模型 |
-| **llm.c** | 30k+ | C 语言训练 LLM | 底层训练效率优化 |
-| **llama2.c** | 19k+ | C 语言推理 Llama | 底层推理部署 |
-| **micrograd** | 16k+ | 自动微分引擎 | 深度学习基础组件 |
-| **minGPT** | 24k+ | GPT 教学实现 | 已被 nanoGPT 取代 |
+Karpathy wiki 是 Andrej Karpathy 在 2026 年 4 月提出的**知识管理方法论**，核心思想：
+
+> "我最近的大量 token 消耗不再主要用于处理代码，而是更多地用于处理知识。"
+
+**核心流程：**
+```
+原始文档 → LLM 编译 → 结构化 Markdown Wiki → 持续积累与查询
+```
+
+**关键特点：**
+- **积累性**：每添加一个文档，知识库就更丰富
+- **可维护**：LLM 自动处理交叉引用、更新摘要、保持一致性
+- **可版本化**：基于 Git，支持分支和协作
+- **零成本维护**：LLM 处理所有维护工作
 
 ### 核心差异解析
 
-#### DocSeeker vs Karpathy：用 LLM vs 造 LLM
+#### DocSeeker vs Karpathy wiki：检索 vs 构建
 
-| 维度 | DocSeeker | Karpathy 项目 |
+| 维度 | DocSeeker | Karpathy wiki |
 |------|-----------|---------------|
-| **角色** | LLM 的"消费者" | LLM 的"生产者" |
-| **问题** | 如何用自然语言找到文档信息？ | 如何理解/训练/部署 LLM？ |
-| **技术** | Agent 编排 + 文件工具 | 模型训练 + 推理优化 |
-| **用户** | 普通用户、企业 | AI 研究者、学习者 |
+| **角色** | 文档检索工具 | 知识构建方法论 |
+| **问题** | 如何快速找到文档中的信息？ | 如何用 LLM 构建可积累的知识库？ |
+| **技术** | Agent 编排 + 文件工具 | LLM 编译 + Markdown + Git |
+| **用户** | 需要检索文档的用户 | 需要管理知识的研究者/学习者 |
+| **输出** | 检索结果 | 结构化知识库 |
 
 #### DocSeeker vs 传统 RAG：Agent 探索 vs 向量检索
 
@@ -296,7 +304,7 @@ DocSeeker、Karpathy 的 LLM 项目、传统 RAG 三者处于 AI 技术栈的不
 | 文件 > 10 万，需要语义检索 | 传统 RAG | 向量检索毫秒级响应 |
 | 高频查询，需要毫秒级响应 | 传统 RAG | 预建索引，查询速度快 |
 | 需要精确的法规条文定位 | 传统 RAG | 语义匹配更精准 |
-| 学习 LLM 原理 | Karpathy 项目 | 从零实现，教学目的 |
+| 构建个人知识库，积累学习笔记 | Karpathy wiki | 可积累、可版本化、零维护 |
 | 两者结合：DocSeeker 做探索入口，RAG 做精准检索 | 混合方案 | 取长补短 |
 
 ### 互补场景示例
@@ -310,13 +318,13 @@ DocSeeker、Karpathy 的 LLM 项目、传统 RAG 三者处于 AI 技术栈的不
 用户需求：从 100 万篇论文中检索相关研究
 推荐方案：传统 RAG（需要语义匹配 + 高效检索）
 
-场景 3：本地化部署
-用户需求：用本地 Llama 模型检索公司文档（隐私安全）
-推荐方案：llama2.c（部署模型） + DocSeeker（文档检索 Agent）
+场景 3：个人知识管理
+用户需求：积累 AI 学习笔记，构建可查询的知识库
+推荐方案：Karpathy wiki（用 LLM 编译原始文档为结构化 wiki）
 
-场景 4：学习 LLM
-用户需求：理解 GPT 是如何训练的
-推荐方案：nanoGPT（从零实现训练循环）
+场景 4：知识检索 + 积累
+用户需求：检索公司文档，同时积累结构化知识
+推荐方案：DocSeeker（检索） + Karpathy wiki（积累）
 ```
 
 ## MCP 服务
