@@ -1,0 +1,32 @@
+# ============================================================
+# DocSeeker 配置文件模板
+# 复制为 conf/config.yaml 并填入你的 API Key
+# CLI 参数（如 --max-iterations）可临时覆盖此处的值
+# ============================================================
+
+# --- API 连接 ---
+api_key: "sk-your-api-key-here"
+base_url: "https://api.siliconflow.cn/v1"
+model: "Qwen/Qwen2.5-7B-Instruct"
+
+# --- 探索参数 ---
+root_path: "SeekerDocs"
+max_iterations: 10
+max_steps: 4
+
+# --- 文件读取 ---
+max_file_lines: 500
+max_file_size_mb: 50
+
+# --- 内容提取 ---
+max_chunk_lines: 500
+max_snippet_length: 600
+
+# --- 预扫描 ---
+max_tree_depth: 4
+max_tree_files: 200
+
+# --- 上下文管理 ---
+max_context_rounds: 6
+max_tool_output: 8000
+maxTokens: 32768
